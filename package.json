@@ -2,11 +2,20 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "dependencies": {
+    "autobind-decorator": "^2.1.0",
     "expo": "^26.0.0",
+    "prettier": "^1.12.0",
     "prop-types": "^15.6.1",
     "react": "16.3.0-alpha.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz",
-    "react-native-extended-stylesheet": "^0.8.1"
+    "react-native-elements": "^0.19.1",
+    "react-navigation": "^1.5.11",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2",
+    "redux-form": "^7.3.0",
+    "redux-logger": "^3.0.6",
+    "styled-components": "^3.2.5",
+    "uuid-v4": "^0.1.0"
   },
   "name": "medicamentor",
   "version": "1.0.0",
@@ -14,11 +23,15 @@
   "author": "Victor Makoed <vmakoed@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "babel-eslint": "^8.2.2",
+    "babel-eslint": "^8.2.3",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.10.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0"
+  },
+  "scripts": {
+    "lint": "eslint app/",
+    "lint:fix": "eslint app/ --fix"
   }
 }

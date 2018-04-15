@@ -1,10 +1,11 @@
-import React from 'react';
-import EStyleSheet from 'react-native-extended-stylesheet';
+import React from 'react'
+import { Provider } from 'react-redux'
+import Navigator from './config/routes'
 
-import Home from './screens/Home';
-
-EStyleSheet.build({});
+import store from './config/store'
 
 export default () => (
-  <Home />
-);
+  <Provider store={store}>
+    <Navigator onNavigationStateChange={null} />
+  </Provider>
+)
