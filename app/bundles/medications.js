@@ -19,7 +19,7 @@ export default function reducer(state = initialState, action = {}) {
         ],
       }
     case UPDATE_MEDICATION: {
-      const index = state.medications.find(medication => medication.id === action.payload.data.id)
+      const index = state.medications.findIndex(medication => medication.id === action.payload.data.id)
       return {
         ...state,
         medications: [
@@ -30,7 +30,7 @@ export default function reducer(state = initialState, action = {}) {
       }
     }
     case REMOVE_MEDICATION: {
-      const index = state.medications.find(medication => medication.id === action.payload.data.id)
+      const index = state.medications.findIndex(medication => medication.id === action.payload.data.id)
       return {
         ...state,
         medications: [

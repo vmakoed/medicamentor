@@ -1,19 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { View } from 'react-native'
-import { List, ListItem, Button } from 'react-native-elements'
+import { List, Button } from 'react-native-elements'
 
-const renderMedication = medication => (
-  <ListItem
-    key={medication.id}
-    title={medication.name}
-  />
-)
+import MedicationListItem from './MedicationListItem'
 
-const MedicationsList = ({ medications, onAddButtonPress }) => (
+const MedicationsList = ({ medications, onAddButtonPress, onMedicationPress }) => (
   <View>
     <List>
-      { medications.map(renderMedication) }
+      { medications.map(medication => (
+        <MedicationListItem
+          key={medication.id}
+          medication={medication}
+          onItemPress={onMedicationPress}
+        />
+      )) }
     </List>
     <Button title="Add Medication" onPress={onAddButtonPress} />
   </View>
@@ -22,10 +23,7 @@ const MedicationsList = ({ medications, onAddButtonPress }) => (
 MedicationsList.propTypes = {
   medications: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   onAddButtonPress: PropTypes.func.isRequired,
-}
-
-MedicationsList.defaultProps = {
-  medications: [],
+  onMedicationPress: PropTypes.func.isRequired,
 }
 
 export default MedicationsList
