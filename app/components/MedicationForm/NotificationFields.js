@@ -10,7 +10,10 @@ import FormInput from '../FormInput'
 
 class NotificationFields extends Component {
   static propTypes = {
-    fields: PropTypes.shape({}),
+    fields: PropTypes.shape({
+      push: PropTypes.func,
+      remove: PropTypes.func,
+    }).isRequired,
   }
 
   @autobind
