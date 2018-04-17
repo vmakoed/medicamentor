@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { getFormValues } from 'redux-form'
 
 import MedicationFormContainer from './MedicationFormContainer'
-import { addMedication } from '../bundles/medications'
+import { updateMedication } from '../bundles/medications'
 
 const FORM_NAME = 'medication'
 
@@ -15,19 +15,23 @@ class AddMedicationContainer extends Component {
     formValues: PropTypes.shape({}),
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
+      getParam: PropTypes.func,
     }),
   }
 
   @autobind
   handleSubmit() {
     const { dispatch, formValues, navigation } = this.props
+    const medication = this.props.navigation.getParam('medication', {})
     navigation.navigate('MedicationsList')
-    dispatch(addMedication({ ...formValues }))
+    dispatch(updateMedication({ id: medication.id, ...formValues }))
   }
 
   render() {
+    const medication = this.props.navigation.getParam('medication', {})
+
     return (
-      <MedicationFormContainer handleSubmit={this.handleSubmit} />
+      <MedicationFormContainer initialValues={medication} handleSubmit={this.handleSubmit} />
     )
   }
 }

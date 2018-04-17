@@ -21,6 +21,12 @@ class MedicationsListContainer extends Component {
     navigation.navigate('AddMedication')
   }
 
+  @autobind
+  navigateToEditMedication(medication) {
+    const { navigation } = this.props
+    navigation.navigate('EditMedication', { medication })
+  }
+
   render() {
     const { medications } = this.props
 
@@ -28,6 +34,7 @@ class MedicationsListContainer extends Component {
       <MedicationsList
         medications={medications}
         onAddButtonPress={this.navigateToAddMedication}
+        onMedicationPress={this.navigateToEditMedication}
       />
     )
   }
