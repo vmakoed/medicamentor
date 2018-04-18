@@ -1,4 +1,4 @@
-import { takeLatest, select } from 'redux-saga/effects'
+import { takeLatest, select, call, put } from 'redux-saga/effects'
 import uuid from 'uuid-v4'
 import { Notifications } from 'expo'
 import moment from 'moment'
@@ -6,6 +6,8 @@ import flatten from 'lodash/flatten'
 
 import database from '../config/firebase'
 
+const LOAD_MEDICATIONS = 'medications/load'
+const LOAD_MEDICATIONS_SUCCESS = 'medications/load/success'
 const ADD_MEDICATION = 'medications/add'
 const UPDATE_MEDICATION = 'medications/update'
 const REMOVE_MEDICATION = 'medications/remove'
@@ -17,6 +19,11 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
+    case LOAD_MEDICATIONS_SUCCESS:
+      return {
+        ...state,
+        medications: action.payload.data,
+      }
     case ADD_MEDICATION:
       return {
         ...state,
@@ -48,6 +55,19 @@ export default function reducer(state = initialState, action = {}) {
     }
     default:
       return state
+  }
+}
+
+export function loadMedications() {
+  return {
+    type: LOAD_MEDICATIONS,
+  }
+}
+
+export function loadMedicationsSuccess(data) {
+  return {
+    type: LOAD_MEDICATIONS_SUCCESS,
+    payload: { data },
   }
 }
 
@@ -100,6 +120,15 @@ const generateNotification = (notification, medication) => ({
   },
 })
 
+function connect() {
+  return new Promise(resolve => database.ref('medications/').once('value', resolve))
+}
+
+export function* loadMedicationsTask() {
+  const snapshot = yield call(connect)
+  yield put(loadMedicationsSuccess(snapshot.val()))
+}
+
 export function* setupNotificationsTask() {
   Notifications.cancelAllScheduledNotificationsAsync()
 
@@ -118,4 +147,5 @@ export function* setupNotificationsTask() {
 
 export function* medicationsSaga() {
   yield takeLatest(SETUP_NOTIFICATIONS, setupNotificationsTask)
+  yield takeLatest(LOAD_MEDICATIONS, loadMedicationsTask)
 }

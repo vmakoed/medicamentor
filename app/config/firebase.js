@@ -3,11 +3,11 @@ import firebase from 'firebase'
 import secrets from './secrets'
 
 const firebaseConfig = {
-  apiKey: secrets.apiKey,
-  authDomain: secrets.authDomain,
-  databaseURL: secrets.databaseURL,
-  projectId: secrets.projectId,
-  storageBucket: secrets.storageBucket,
+  apiKey: secrets.firebase.apiKey,
+  authDomain: secrets.firebase.authDomain,
+  databaseURL: secrets.firebase.databaseURL,
+  projectId: secrets.firebase.projectId,
+  storageBucket: secrets.firebase.storageBucket,
 }
 
 firebase.initializeApp(firebaseConfig)

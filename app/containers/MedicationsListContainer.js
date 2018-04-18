@@ -5,7 +5,7 @@ import autobind from 'autobind-decorator'
 import isEqual from 'lodash/isEqual'
 import { Permissions } from 'expo'
 
-import { setupNotifications } from '../bundles/medications'
+import { setupNotifications, loadMedications } from '../bundles/medications'
 import MedicationsList from '../components/MedicationsList'
 
 class MedicationsListContainer extends Component {
@@ -21,14 +21,15 @@ class MedicationsListContainer extends Component {
 
   componentDidMount() {
     Permissions.askAsync(Permissions.NOTIFICATIONS)
+    this.props.dispatch(loadMedications())
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { medications, dispatch } = this.props
-    if (!isEqual(nextProps.medications, medications)) {
-      dispatch(setupNotifications())
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   const { medications, dispatch } = this.props
+  //   if (!isEqual(nextProps.medications, medications)) {
+  //     dispatch(setupNotifications())
+  //   }
+  // }
 
   @autobind
   navigateToAddMedication() {
