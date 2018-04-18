@@ -4,6 +4,8 @@ import { Notifications } from 'expo'
 import moment from 'moment'
 import flatten from 'lodash/flatten'
 
+import database from '../config/firebase'
+
 const ADD_MEDICATION = 'medications/add'
 const UPDATE_MEDICATION = 'medications/update'
 const REMOVE_MEDICATION = 'medications/remove'
@@ -20,7 +22,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         medications: [
           ...state.medications.slice(),
-          { ...action.payload.data, id: uuid() },
+          { id: uuid(), notifications: [], ...action.payload.data },
         ],
       }
     case UPDATE_MEDICATION: {
@@ -102,6 +104,8 @@ export function* setupNotificationsTask() {
   Notifications.cancelAllScheduledNotificationsAsync()
 
   const { medications } = yield select(getMedications)
+
+  database.ref('medications/').set(medications)
 
   const localNotifications = flatten(medications.map(medication => (
     medication.notifications.map(notification => generateNotification(notification, medication))

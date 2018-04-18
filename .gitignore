@@ -4,3 +4,6 @@ npm-debug.*
 
 #idea
 .idea/
+
+#secrets
+app/config/secrets.js
