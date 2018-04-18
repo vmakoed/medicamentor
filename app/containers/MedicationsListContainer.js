@@ -2,17 +2,14 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import autobind from 'autobind-decorator'
-import isEqual from 'lodash/isEqual'
 import { Permissions } from 'expo'
 
-import { setupNotifications, loadMedications } from '../bundles/medications'
 import MedicationsList from '../components/MedicationsList'
 
 class MedicationsListContainer extends Component {
   static propTypes = {
     medications: PropTypes.arrayOf(PropTypes.shape({})),
     navigation: PropTypes.shape({}).isRequired,
-    dispatch: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -21,15 +18,7 @@ class MedicationsListContainer extends Component {
 
   componentDidMount() {
     Permissions.askAsync(Permissions.NOTIFICATIONS)
-    this.props.dispatch(loadMedications())
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   const { medications, dispatch } = this.props
-  //   if (!isEqual(nextProps.medications, medications)) {
-  //     dispatch(setupNotifications())
-  //   }
-  // }
 
   @autobind
   navigateToAddMedication() {
