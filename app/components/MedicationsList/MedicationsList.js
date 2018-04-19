@@ -4,6 +4,7 @@ import { View } from 'react-native'
 import { List, Button } from 'react-native-elements'
 
 import MedicationListItem from './MedicationListItem'
+import styles from './styles'
 
 const MedicationsList = ({ medications, onAddButtonPress, onMedicationPress }) => (
   <View>
@@ -16,7 +17,7 @@ const MedicationsList = ({ medications, onAddButtonPress, onMedicationPress }) =
         />
       )) }
     </List>
-    <Button title="Add Medication" onPress={onAddButtonPress} />
+    <Button style={styles.addButton} title="Add Medication" onPress={onAddButtonPress} />
   </View>
 )
 

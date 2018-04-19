@@ -1,7 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import autobind from 'autobind-decorator'
-import { ListItem } from 'react-native-elements'
+import { View, Text, TouchableWithoutFeedback } from 'react-native'
+import { Card, ListItem } from 'react-native-elements'
+import uuid from 'uuid-v4'
+
+const renderNotification = notification => (
+  <View key={uuid()}>
+    <Text>{notification.time}</Text>
+  </View>
+)
 
 class MedicationListItem extends Component {
   static propTypes = {
@@ -19,10 +27,15 @@ class MedicationListItem extends Component {
     const { medication } = this.props
 
     return (
-      <ListItem
-        title={medication.name}
-        onPress={this.onPress}
-      />
+      <TouchableWithoutFeedback onPress={this.onPress}>
+        <View>
+          <Card
+            title={medication.name}
+          >
+            {medication.notifications.map(renderNotification)}
+          </Card>
+        </View>
+      </TouchableWithoutFeedback>
     )
   }
 }
