@@ -74,12 +74,6 @@ export function removeMedication(data) {
   }
 }
 
-export function setupNotifications() {
-  return {
-    type: SETUP_NOTIFICATIONS,
-  }
-}
-
 const getMedications = state => state.medications
 
 const generateNotification = (notification, medication) => ({
