@@ -25,7 +25,11 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.poppyheaven.medicamentor",
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.poppyheaven.medicamentor"
     }
   }
 }
