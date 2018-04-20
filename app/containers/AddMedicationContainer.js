@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import autobind from 'autobind-decorator'
 import { connect } from 'react-redux'
-import { getFormValues } from 'redux-form'
+import { getFormValues, reset } from 'redux-form'
 
 import MedicationFormContainer from './MedicationFormContainer'
 import { addMedication } from '../bundles/medications'
@@ -22,6 +22,7 @@ class AddMedicationContainer extends Component {
   handleSubmit() {
     const { dispatch, formValues, navigation } = this.props
     navigation.navigate('MedicationsList')
+    dispatch(reset(FORM_NAME))
     dispatch(addMedication({ ...formValues }))
   }
 

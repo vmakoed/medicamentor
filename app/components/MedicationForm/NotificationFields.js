@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import autobind from 'autobind-decorator'
-import { View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Field } from 'redux-form'
 import uuid from 'uuid-v4'
@@ -30,7 +30,7 @@ class NotificationFields extends Component {
     const { fields } = this.props
 
     return (
-      <View>
+      <ScrollView>
         <Button title="Add Notification" onPress={this.onAddButtonPress} />
         {fields.map((member, index) => (
           <View key={uuid()}>
@@ -44,7 +44,7 @@ class NotificationFields extends Component {
             />
           </View>
         ))}
-      </View>
+      </ScrollView>
     )
   }
 }

@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View } from 'react-native'
+import { ScrollView } from 'react-native'
 import { List, Button } from 'react-native-elements'
 
 import MedicationListItem from './MedicationListItem'
 
 const MedicationsList = ({ medications, onAddButtonPress, onMedicationPress }) => (
-  <View>
+  <ScrollView>
     <List>
       { medications.map(medication => (
         <MedicationListItem
@@ -17,7 +17,7 @@ const MedicationsList = ({ medications, onAddButtonPress, onMedicationPress }) =
       )) }
     </List>
     <Button title="Add Medication" onPress={onAddButtonPress} />
-  </View>
+  </ScrollView>
 )
 
 MedicationsList.propTypes = {

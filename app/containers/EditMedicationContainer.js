@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import autobind from 'autobind-decorator'
 import { connect } from 'react-redux'
-import { getFormValues } from 'redux-form'
+import { getFormValues, reset } from 'redux-form'
 
 import { updateMedication, removeMedication } from '../bundles/medications'
 import EditMedication from '../components/EditMedication'
@@ -24,6 +24,7 @@ class EditMedicationContainer extends Component {
     const { dispatch, formValues, navigation } = this.props
     const medication = navigation.getParam('medication', {})
     navigation.navigate('MedicationsList')
+    dispatch(reset(FORM_NAME))
     dispatch(updateMedication({ id: medication.id, ...formValues }))
   }
 
