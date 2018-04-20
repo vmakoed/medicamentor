@@ -76,25 +76,30 @@ export function removeMedication(data) {
 
 const getMedications = state => state.medications
 
-const generateNotification = (notification, medication) => ({
-  schedulingOptions: {
-    time: moment(notification.time, 'HH:mm').toDate(),
-    repeat: 'day',
-  },
-  object: {
-    title: 'Take medication',
-    body: `${medication.name}`,
-    ios: {
-      sound: true,
+const generateNotification = (notification, medication) => {
+  const notificationTime = moment(notification.time, 'HH:mm')
+  const adjustedTime = notificationTime.isBefore() ? notificationTime.add(1, 'day') : notificationTime
+
+  return {
+    schedulingOptions: {
+      time: adjustedTime.toDate(),
+      repeat: 'day',
     },
-    android: {
-      sound: true,
-      priority: 'high',
-      sticky: false,
-      vibrate: true,
+    object: {
+      title: 'Take medication',
+      body: `${medication.name}`,
+      ios: {
+        sound: true,
+      },
+      android: {
+        sound: true,
+        priority: 'high',
+        sticky: false,
+        vibrate: true,
+      },
     },
-  },
-})
+  }
+}
 
 function fetchMedications() {
   return new Promise(resolve => database.ref('medications/').once('value', resolve))
